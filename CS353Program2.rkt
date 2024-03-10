@@ -127,7 +127,10 @@
   (displayln "Enter the end year to filter: ")
   (define end-date (read-line-input))
   (cond
-    [(and (andmap char-numeric? (string->list start-date)) (andmap char-numeric? (string->list end-date))) (list 'DATE (string->number start-date) (string->number end-date))]
+    [(and (andmap char-numeric? (string->list start-date)) (andmap char-numeric? (string->list end-date)))
+     (if (< (string->number start-date) (string->number end-date))
+         (list 'DATE (string->number start-date) (string->number end-date))
+         (list 'DATE (string->number end-date) (string->number start-date)))]
     [else
      (displayln "One of your dates is formatted incorrectly. Enter again")
      (get-date-input)]))
